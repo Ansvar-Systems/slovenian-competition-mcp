@@ -1,0 +1,33 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "eu.ansvar/slovenian-competition-mcp",
+  "description": "Query AVK (Agencija za varstvo konkurence — Slovenian Competition Protection Agency) competition law decisions, merger control cases, and sector enforcement activity",
+  "repository": {
+    "url": "https://github.com/Ansvar-Systems/slovenian-competition-mcp",
+    "source": "github"
+  },
+  "homepage": "https://ansvar.eu",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "keywords": [
+    "avk",
+    "slovenian-competition",
+    "competition-law",
+    "antitrust",
+    "merger-control",
+    "slovenia",
+    "compliance",
+    "mcp",
+    "ansvar"
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@ansvar/slovenian-competition-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
