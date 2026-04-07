@@ -27,6 +27,7 @@ import {
   getMerger,
   listSectors,
 } from "./db.js";
+import { buildCitation } from "./utils/citation.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -235,7 +236,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         if (!decision) {
           return errorContent(`Decision not found: ${parsed.case_number}`);
         }
-        return textContent(decision);
+        const _citation = buildCitation(
+          parsed.case_number,
+          (decision as Record<string, unknown>).title as string || parsed.case_number,
+          "si_comp_get_decision",
+          { case_number: parsed.case_number },
+        );
+        return textContent({ ...decision as Record<string, unknown>, _citation });
       }
 
       case "si_comp_search_mergers": {
@@ -255,7 +262,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         if (!merger) {
           return errorContent(`Merger case not found: ${parsed.case_number}`);
         }
-        return textContent(merger);
+        const _citation = buildCitation(
+          parsed.case_number,
+          (merger as Record<string, unknown>).title as string || parsed.case_number,
+          "si_comp_get_merger",
+          { case_number: parsed.case_number },
+        );
+        return textContent({ ...merger as Record<string, unknown>, _citation });
       }
 
       case "si_comp_list_sectors": {
