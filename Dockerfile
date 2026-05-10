@@ -1,7 +1,7 @@
 FROM node:20-slim AS builder
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci --ignore-scripts
+RUN npm ci
 COPY tsconfig.json ./
 COPY src/ src/
 RUN npm run build
@@ -11,8 +11,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV AVK_DB_PATH=/app/data/avk.db
 COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
+COPY --from=builder /app/node_modules/ node_modules/
 COPY --from=builder /app/dist/ dist/
+COPY data/database.db data/avk.db
 RUN addgroup --system --gid 1001 mcp && \
     adduser --system --uid 1001 --ingroup mcp mcp && \
     chown -R mcp:mcp /app
