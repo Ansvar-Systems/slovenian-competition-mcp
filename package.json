@@ -2,11 +2,11 @@
   "name": "@ansvar/slovenian-competition-mcp",
   "version": "0.1.0",
   "mcpName": "eu.ansvar/slovenian-competition-mcp",
-  "description": "AVK (Agencija za varstvo konkurence — Slovenian Competition Protection Agency) MCP server — competition law decisions, merger control, and sector enforcement",
+  "description": "AVK (Agencija za varstvo konkurence \u2014 Slovenian Competition Protection Agency) MCP server \u2014 competition law decisions, merger control, and sector enforcement",
   "type": "module",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "bin": {
-    "slovenian-competition-mcp": "dist/src/index.js"
+    "slovenian-competition-mcp": "dist/index.js"
   },
   "files": [
     "dist",
@@ -42,11 +42,18 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/http-server.ts",
-    "start": "node dist/src/http-server.js",
+    "start": "node dist/http-server.js",
     "seed": "npx tsx scripts/seed-sample.ts",
     "ingest": "npx tsx scripts/ingest-avk.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "ingest:fetch": "tsx scripts/ingest-fetch.ts",
+    "ingest:diff": "tsx scripts/ingest-diff.ts",
+    "coverage:update": "tsx scripts/update-coverage.ts",
+    "freshness:check": "tsx scripts/check-freshness.ts",
+    "coverage:verify": "tsx scripts/verify-coverage.ts",
+    "ingest:full": "npm run ingest:fetch && npm run build:db && npm run coverage:update",
+    "test:contract": "echo \"No contract tests yet\" && exit 0"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
